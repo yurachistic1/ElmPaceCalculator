@@ -73,7 +73,8 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
+    div [] [
+        div []
         [ h1 [] [ text "Pace Calculator" ]  
         , input [ class "timeinput", type_ "text", placeholder "Hours", value (intVal model.hours), onInput Hours ] []
         , text " : "
@@ -84,6 +85,7 @@ view model =
         , div[] [button [ onClick CalculatePace ] [ text "calculate" ]]
         , viewResult model 
         ]
+    ]
 
 
 viewResult : Model -> Html Msg
@@ -92,7 +94,7 @@ viewResult model =
         div [ class "result" ] [ text (formatPace model.pace) ]
 
     else
-        div [ class "error" ] [ text model.error ]
+        div [ class "badge badge-danger", attribute "role" "alert" ] [ text model.error ]
 
 
 formatPace : Int -> String
@@ -109,16 +111,16 @@ formatPace pace =
 
 calculate : Model -> Model
 calculate model =
-    if model.distance /= "0" then
+    if model.distance /= "0" && model.distance /= "0." then
         case String.toFloat model.distance of
             Just distance ->
                 { model | pace = calcPace distance model, displayResult = True}
 
             Nothing ->
-                { model | error = "Please enter valid distance value", displayResult = False }
+                { model | error = "Please enter a valid distance value", displayResult = False }
 
     else
-        { model | error = "Distance cannot be 0", displayResult = False }
+        { model | error = "Distance cannot be 0km", displayResult = False }
 
 
 calcPace : Float -> Model -> Int

@@ -4488,7 +4488,7 @@ var _Parser_findSubString = F5(function(smallString, offset, row, col, bigString
 var $elm$core$Basics$False = 1;
 var $author$project$Main$Model = F7(
 	function (hours, mins, secs, distance, pace, displayResult, error) {
-		return {E: displayResult, z: distance, N: error, F: hours, H: mins, Q: pace, I: secs};
+		return {E: displayResult, v: distance, N: error, F: hours, H: mins, Q: pace, I: secs};
 	});
 var $author$project$Main$init = A7($author$project$Main$Model, 0, 0, 0, '', 0, false, '');
 var $elm$core$Basics$EQ = 1;
@@ -5302,8 +5302,8 @@ var $author$project$Main$calcPace = F2(
 var $elm$core$Basics$neq = _Utils_notEqual;
 var $elm$core$String$toFloat = _String_toFloat;
 var $author$project$Main$calculate = function (model) {
-	if (model.z !== '0') {
-		var _v0 = $elm$core$String$toFloat(model.z);
+	if ((model.v !== '0') && (model.v !== '0.')) {
+		var _v0 = $elm$core$String$toFloat(model.v);
 		if (!_v0.$) {
 			var distance = _v0.a;
 			return _Utils_update(
@@ -5315,12 +5315,12 @@ var $author$project$Main$calculate = function (model) {
 		} else {
 			return _Utils_update(
 				model,
-				{E: false, N: 'Please enter valid distance value'});
+				{E: false, N: 'Please enter a valid distance value'});
 		}
 	} else {
 		return _Utils_update(
 			model,
-			{E: false, N: 'Distance cannot be 0'});
+			{E: false, N: 'Distance cannot be 0km'});
 	}
 };
 var $elm$parser$Parser$ExpectingEnd = {$: 10};
@@ -5794,7 +5794,7 @@ var $author$project$Main$update = F2(
 				return _Utils_update(
 					model,
 					{
-						z: A2($author$project$Main$validateFl, newDistance, model.z)
+						v: A2($author$project$Main$validateFl, newDistance, model.v)
 					});
 			default:
 				return $author$project$Main$calculate(model);
@@ -5884,6 +5884,14 @@ var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
+var $elm$virtual_dom$VirtualDom$attribute = F2(
+	function (key, value) {
+		return A2(
+			_VirtualDom_attribute,
+			_VirtualDom_noOnOrFormAction(key),
+			_VirtualDom_noJavaScriptOrHtmlUri(value));
+	});
+var $elm$html$Html$Attributes$attribute = $elm$virtual_dom$VirtualDom$attribute;
 var $author$project$Main$formatPace = function (pace) {
 	return 'Your pace is ' + ($elm$core$String$fromInt((pace / 60) | 0) + (':' + ($elm$core$String$fromInt(pace % 60) + ' per kilometer!')));
 };
@@ -5902,7 +5910,8 @@ var $author$project$Main$viewResult = function (model) {
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				$elm$html$Html$Attributes$class('error')
+				$elm$html$Html$Attributes$class('badge badge-danger'),
+				A2($elm$html$Html$Attributes$attribute, 'role', 'alert')
 			]),
 		_List_fromArray(
 			[
@@ -5916,83 +5925,89 @@ var $author$project$Main$view = function (model) {
 		_List_fromArray(
 			[
 				A2(
-				$elm$html$Html$h1,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$elm$html$Html$text('Pace Calculator')
-					])),
-				A2(
-				$elm$html$Html$input,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('timeinput'),
-						$elm$html$Html$Attributes$type_('text'),
-						$elm$html$Html$Attributes$placeholder('Hours'),
-						$elm$html$Html$Attributes$value(
-						$author$project$Main$intVal(model.F)),
-						$elm$html$Html$Events$onInput($author$project$Main$Hours)
-					]),
-				_List_Nil),
-				$elm$html$Html$text(' : '),
-				A2(
-				$elm$html$Html$input,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('timeinput'),
-						$elm$html$Html$Attributes$type_('text'),
-						$elm$html$Html$Attributes$placeholder('Mins'),
-						$elm$html$Html$Attributes$value(
-						$author$project$Main$intVal(model.H)),
-						$elm$html$Html$Events$onInput($author$project$Main$Mins)
-					]),
-				_List_Nil),
-				$elm$html$Html$text(' : '),
-				A2(
-				$elm$html$Html$input,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('timeinput'),
-						$elm$html$Html$Attributes$type_('text'),
-						$elm$html$Html$Attributes$placeholder('Secs'),
-						$elm$html$Html$Attributes$value(
-						$author$project$Main$intVal(model.I)),
-						$elm$html$Html$Events$onInput($author$project$Main$Secs)
-					]),
-				_List_Nil),
-				A2(
 				$elm$html$Html$div,
 				_List_Nil,
 				_List_fromArray(
 					[
+						A2(
+						$elm$html$Html$h1,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Pace Calculator')
+							])),
 						A2(
 						$elm$html$Html$input,
 						_List_fromArray(
 							[
+								$elm$html$Html$Attributes$class('timeinput'),
 								$elm$html$Html$Attributes$type_('text'),
-								$elm$html$Html$Attributes$placeholder('Distance (km)'),
-								$elm$html$Html$Attributes$value(model.z),
-								$elm$html$Html$Events$onInput($author$project$Main$Distance)
+								$elm$html$Html$Attributes$placeholder('Hours'),
+								$elm$html$Html$Attributes$value(
+								$author$project$Main$intVal(model.F)),
+								$elm$html$Html$Events$onInput($author$project$Main$Hours)
 							]),
-						_List_Nil)
-					])),
-				A2(
-				$elm$html$Html$div,
-				_List_Nil,
-				_List_fromArray(
-					[
+						_List_Nil),
+						$elm$html$Html$text(' : '),
 						A2(
-						$elm$html$Html$button,
+						$elm$html$Html$input,
 						_List_fromArray(
 							[
-								$elm$html$Html$Events$onClick($author$project$Main$CalculatePace)
+								$elm$html$Html$Attributes$class('timeinput'),
+								$elm$html$Html$Attributes$type_('text'),
+								$elm$html$Html$Attributes$placeholder('Mins'),
+								$elm$html$Html$Attributes$value(
+								$author$project$Main$intVal(model.H)),
+								$elm$html$Html$Events$onInput($author$project$Main$Mins)
 							]),
+						_List_Nil),
+						$elm$html$Html$text(' : '),
+						A2(
+						$elm$html$Html$input,
 						_List_fromArray(
 							[
-								$elm$html$Html$text('calculate')
-							]))
-					])),
-				$author$project$Main$viewResult(model)
+								$elm$html$Html$Attributes$class('timeinput'),
+								$elm$html$Html$Attributes$type_('text'),
+								$elm$html$Html$Attributes$placeholder('Secs'),
+								$elm$html$Html$Attributes$value(
+								$author$project$Main$intVal(model.I)),
+								$elm$html$Html$Events$onInput($author$project$Main$Secs)
+							]),
+						_List_Nil),
+						A2(
+						$elm$html$Html$div,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$input,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$type_('text'),
+										$elm$html$Html$Attributes$placeholder('Distance (km)'),
+										$elm$html$Html$Attributes$value(model.v),
+										$elm$html$Html$Events$onInput($author$project$Main$Distance)
+									]),
+								_List_Nil)
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$button,
+								_List_fromArray(
+									[
+										$elm$html$Html$Events$onClick($author$project$Main$CalculatePace)
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text('calculate')
+									]))
+							])),
+						$author$project$Main$viewResult(model)
+					]))
 			]));
 };
 var $author$project$Main$main = $elm$browser$Browser$sandbox(
