@@ -5,6 +5,7 @@ import Html exposing (Html, button, div, input, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Parser exposing (..)
+import Html exposing (h1)
 
 
 
@@ -51,13 +52,13 @@ update : Msg -> Model -> Model
 update msg model =
     case msg of
         Hours newHours ->
-            { model | hours = validateInt newHours model.hours }
+            { model | hours = validateInt newHours model.hours 10000 }
 
         Mins newMins ->
-            { model | mins = validateInt newMins model.mins }
+            { model | mins = validateInt newMins model.mins 60 }
 
         Secs newSecs ->
-            { model | secs = validateInt newSecs model.secs }
+            { model | secs = validateInt newSecs model.secs 60 }
 
         Distance newDistance ->
             { model | distance = validateFl newDistance model.distance }
@@ -73,12 +74,13 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div []
-        [ input [ type_ "text", placeholder "Hours", value (intVal model.hours), onInput Hours ] []
+        [ h1 [] [ text "Pace Calculator" ]  
+        , input [ class "timeinput", type_ "text", placeholder "Hours", value (intVal model.hours), onInput Hours ] []
         , text " : "
-        , input [ type_ "text", placeholder "Mins", value (intVal model.mins), onInput Mins ] []
+        , input [ class "timeinput", type_ "text", placeholder "Mins", value (intVal model.mins), onInput Mins ] []
         , text " : "
-        , input [ type_ "text", placeholder "Secs", value (intVal model.secs), onInput Secs ] []
-        , div [] [input [ type_ "text", placeholder "Distance", value model.distance, onInput Distance ] []]
+        , input [ class "timeinput", type_ "text", placeholder "Secs", value (intVal model.secs), onInput Secs ] []
+        , div [] [input [ type_ "text", placeholder "Distance (km)", value model.distance, onInput Distance ] []]
         , div[] [button [ onClick CalculatePace ] [ text "calculate" ]]
         , viewResult model 
         ]
@@ -87,11 +89,19 @@ view model =
 viewResult : Model -> Html Msg
 viewResult model =
     if model.displayResult then
-        div [] [ text (String.fromInt model.pace) ]
+        div [ class "result" ] [ text (formatPace model.pace) ]
 
     else
-        div [] [ text model.error ]
+        div [ class "error" ] [ text model.error ]
 
+
+formatPace : Int -> String
+formatPace pace =
+    "Your pace is "
+    ++ String.fromInt (pace // 60) 
+    ++ ":" 
+    ++ String.fromInt (remainderBy 60 pace)
+    ++ " per kilometer!"
 
 
 -- LOGIC
@@ -120,15 +130,14 @@ calcPace distance model =
 -- VALIDATORS
 
 
-validateInt : String -> Int -> Int
-validateInt input original =
-    let
-        convIn =
-            String.toInt input
-    in
-    case convIn of
+validateInt : String -> Int -> Int -> Int
+validateInt input original lim =  
+    case String.toInt input of
         Just value ->
-            value
+            if value < lim then
+                value
+            else 
+                original
 
         Nothing ->
             if input == "" then
@@ -149,7 +158,7 @@ intVal value =
 
 validateFl : String -> String -> String
 validateFl input original =
-    case run parser input of
+    case run parserDistance input of
         Ok _ ->
             input
 
@@ -157,8 +166,8 @@ validateFl input original =
             original
 
 
-parser : Parser (Maybe Float)
-parser =
+parserDistance : Parser (Maybe Float)
+parserDistance =
     oneOf
         [ succeed Just
             |= float
