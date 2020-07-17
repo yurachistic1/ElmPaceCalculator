@@ -1,7 +1,4 @@
-body {
-    text-align: center;
-}
-
-div {
-    margin: 10px;
+#calcbtn {
+    margin-top: -15px;
+    margin-bottom: 15px;
 }

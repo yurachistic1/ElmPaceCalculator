@@ -1,11 +1,10 @@
 module Main exposing (..)
 
 import Browser
-import Html exposing (Html, button, div, input, text)
+import Html exposing (Html, button, div, input, text, h1, h5, span)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Parser exposing (..)
-import Html exposing (h1)
 
 
 
@@ -73,28 +72,30 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div [] [
-        div []
-        [ h1 [] [ text "Pace Calculator" ]  
-        , input [ class "timeinput", type_ "text", placeholder "Hours", value (intVal model.hours), onInput Hours ] []
-        , text " : "
-        , input [ class "timeinput", type_ "text", placeholder "Mins", value (intVal model.mins), onInput Mins ] []
-        , text " : "
-        , input [ class "timeinput", type_ "text", placeholder "Secs", value (intVal model.secs), onInput Secs ] []
-        , div [] [input [ type_ "text", placeholder "Distance (km)", value model.distance, onInput Distance ] []]
-        , div[] [button [ onClick CalculatePace ] [ text "calculate" ]]
-        , viewResult model 
+    div [ class "container" ] 
+        [ div [ class "row"] [div [ class "col-sm-6 offset-sm-3" ] [h1 [] [ text "Running Pace Calculator" ] ] ]
+        , Html.form []
+            [ div [ class "row"]
+                [ div [ class "form-group col-sm-2 offset-sm-3" ] [input [ class "form-control", type_ "text", placeholder "Hours", value (intVal model.hours), onInput Hours ] []]
+                , div [ class "form-group col-sm-2" ] [input [ class "form-control", type_ "text", placeholder "Mins", value (intVal model.mins), onInput Mins ] []]
+                , div [ class "form-group col-sm-2" ] [input [ class "form-control", type_ "text", placeholder "Secs", value (intVal model.secs), onInput Secs ] []]
+                ]
+            , div [ class "row"] 
+                [ div [ class "form-group col-sm-3 offset-sm-3" ] [input [ class "form-control", type_ "text", placeholder "Distance (km)", value model.distance, onInput Distance ] []]
+                ]
+            ]
+        , div [ class "row" ] [ div [ class "col-sm-6 offset-sm-3"] [button [ id "calcbtn", class "btn btn-primary", onClick CalculatePace ] [ text "Calculate" ]]] 
+        , viewResult model
         ]
-    ]
 
 
 viewResult : Model -> Html Msg
 viewResult model =
     if model.displayResult then
-        div [ class "result" ] [ text (formatPace model.pace) ]
+        div [ class "row" ] [div [ class "col-sm-6 offset-sm-3" ] [ h5 [] [ text (formatPace model.pace)] ] ]
 
     else
-        div [ class "badge badge-danger", attribute "role" "alert" ] [ text model.error ]
+        div [ class "row" ] [div [ class "col-sm-6 offset-sm-3" ] [ span[ class "badge badge-danger" ] [text model.error ] ] ]
 
 
 formatPace : Int -> String

@@ -5824,7 +5824,9 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$html$Html$form = _VirtualDom_node('form');
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
+var $elm$html$Html$Attributes$id = $elm$html$Html$Attributes$stringProperty('id');
 var $elm$html$Html$input = _VirtualDom_node('input');
 var $author$project$Main$intVal = function (value) {
 	return (!value) ? '' : $elm$core$String$fromInt(value);
@@ -5884,130 +5886,238 @@ var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
-var $elm$virtual_dom$VirtualDom$attribute = F2(
-	function (key, value) {
-		return A2(
-			_VirtualDom_attribute,
-			_VirtualDom_noOnOrFormAction(key),
-			_VirtualDom_noJavaScriptOrHtmlUri(value));
-	});
-var $elm$html$Html$Attributes$attribute = $elm$virtual_dom$VirtualDom$attribute;
 var $author$project$Main$formatPace = function (pace) {
 	return 'Your pace is ' + ($elm$core$String$fromInt((pace / 60) | 0) + (':' + ($elm$core$String$fromInt(pace % 60) + ' per kilometer!')));
 };
+var $elm$html$Html$h5 = _VirtualDom_node('h5');
+var $elm$html$Html$span = _VirtualDom_node('span');
 var $author$project$Main$viewResult = function (model) {
 	return model.E ? A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				$elm$html$Html$Attributes$class('result')
+				$elm$html$Html$Attributes$class('row')
 			]),
 		_List_fromArray(
 			[
-				$elm$html$Html$text(
-				$author$project$Main$formatPace(model.Q))
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('col-sm-6 offset-sm-3')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$h5,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text(
+								$author$project$Main$formatPace(model.Q))
+							]))
+					]))
 			])) : A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				$elm$html$Html$Attributes$class('badge badge-danger'),
-				A2($elm$html$Html$Attributes$attribute, 'role', 'alert')
+				$elm$html$Html$Attributes$class('row')
 			]),
 		_List_fromArray(
 			[
-				$elm$html$Html$text(model.N)
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('col-sm-6 offset-sm-3')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$span,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('badge badge-danger')
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text(model.N)
+							]))
+					]))
 			]));
 };
 var $author$project$Main$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
-		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('container')
+			]),
 		_List_fromArray(
 			[
 				A2(
 				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('row')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('col-sm-6 offset-sm-3')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$h1,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('Running Pace Calculator')
+									]))
+							]))
+					])),
+				A2(
+				$elm$html$Html$form,
 				_List_Nil,
 				_List_fromArray(
 					[
 						A2(
-						$elm$html$Html$h1,
-						_List_Nil,
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Pace Calculator')
-							])),
-						A2(
-						$elm$html$Html$input,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('timeinput'),
-								$elm$html$Html$Attributes$type_('text'),
-								$elm$html$Html$Attributes$placeholder('Hours'),
-								$elm$html$Html$Attributes$value(
-								$author$project$Main$intVal(model.F)),
-								$elm$html$Html$Events$onInput($author$project$Main$Hours)
-							]),
-						_List_Nil),
-						$elm$html$Html$text(' : '),
-						A2(
-						$elm$html$Html$input,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('timeinput'),
-								$elm$html$Html$Attributes$type_('text'),
-								$elm$html$Html$Attributes$placeholder('Mins'),
-								$elm$html$Html$Attributes$value(
-								$author$project$Main$intVal(model.H)),
-								$elm$html$Html$Events$onInput($author$project$Main$Mins)
-							]),
-						_List_Nil),
-						$elm$html$Html$text(' : '),
-						A2(
-						$elm$html$Html$input,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('timeinput'),
-								$elm$html$Html$Attributes$type_('text'),
-								$elm$html$Html$Attributes$placeholder('Secs'),
-								$elm$html$Html$Attributes$value(
-								$author$project$Main$intVal(model.I)),
-								$elm$html$Html$Events$onInput($author$project$Main$Secs)
-							]),
-						_List_Nil),
-						A2(
 						$elm$html$Html$div,
-						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('row')
+							]),
 						_List_fromArray(
 							[
 								A2(
-								$elm$html$Html$input,
+								$elm$html$Html$div,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$type_('text'),
-										$elm$html$Html$Attributes$placeholder('Distance (km)'),
-										$elm$html$Html$Attributes$value(model.v),
-										$elm$html$Html$Events$onInput($author$project$Main$Distance)
+										$elm$html$Html$Attributes$class('form-group col-sm-2 offset-sm-3')
 									]),
-								_List_Nil)
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-control'),
+												$elm$html$Html$Attributes$type_('text'),
+												$elm$html$Html$Attributes$placeholder('Hours'),
+												$elm$html$Html$Attributes$value(
+												$author$project$Main$intVal(model.F)),
+												$elm$html$Html$Events$onInput($author$project$Main$Hours)
+											]),
+										_List_Nil)
+									])),
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('form-group col-sm-2')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-control'),
+												$elm$html$Html$Attributes$type_('text'),
+												$elm$html$Html$Attributes$placeholder('Mins'),
+												$elm$html$Html$Attributes$value(
+												$author$project$Main$intVal(model.H)),
+												$elm$html$Html$Events$onInput($author$project$Main$Mins)
+											]),
+										_List_Nil)
+									])),
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('form-group col-sm-2')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-control'),
+												$elm$html$Html$Attributes$type_('text'),
+												$elm$html$Html$Attributes$placeholder('Secs'),
+												$elm$html$Html$Attributes$value(
+												$author$project$Main$intVal(model.I)),
+												$elm$html$Html$Events$onInput($author$project$Main$Secs)
+											]),
+										_List_Nil)
+									]))
 							])),
 						A2(
 						$elm$html$Html$div,
-						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('row')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('form-group col-sm-3 offset-sm-3')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-control'),
+												$elm$html$Html$Attributes$type_('text'),
+												$elm$html$Html$Attributes$placeholder('Distance (km)'),
+												$elm$html$Html$Attributes$value(model.v),
+												$elm$html$Html$Events$onInput($author$project$Main$Distance)
+											]),
+										_List_Nil)
+									]))
+							]))
+					])),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('row')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('col-sm-6 offset-sm-3')
+							]),
 						_List_fromArray(
 							[
 								A2(
 								$elm$html$Html$button,
 								_List_fromArray(
 									[
+										$elm$html$Html$Attributes$id('calcbtn'),
+										$elm$html$Html$Attributes$class('btn btn-primary'),
 										$elm$html$Html$Events$onClick($author$project$Main$CalculatePace)
 									]),
 								_List_fromArray(
 									[
-										$elm$html$Html$text('calculate')
+										$elm$html$Html$text('Calculate')
 									]))
-							])),
-						$author$project$Main$viewResult(model)
-					]))
+							]))
+					])),
+				$author$project$Main$viewResult(model)
 			]));
 };
 var $author$project$Main$main = $elm$browser$Browser$sandbox(
